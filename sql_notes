@@ -1,0 +1,66 @@
+To log in:
+sudo -u postgres psql
+sudo psql -U <username> -W -d <database>
+
+Make a database in postgres:
+CREATE DATABASE <name>
+
+delete database:
+DROP DATABASE <database_name>
+
+delete user;
+DROP USER username
+
+Connect/switch databases;
+/c <database name>
+
+Import a file to the database
+psql -U your_username -d your_database_name -f /path/to/yourfile.sql   
+
+Set a password in a database:
+ALTER USER postgres WITH PASSWORD 'your_secure_password';et
+
+creating a user:
+CREATE USER username WITH <privilage> PASSWORD 'secure_password';
+
+granding privilages;
+GRANT <privilage> ON <database_name> TO <username>
+GRANT <privilage> ON ALL TABLES IN SCHEMA <schema> TO <user>
+
+changing a user to no login
+ALTER USER <username> WITH NOLOGIN
+
+locking a user;
+sudo passwd -l username
+
+changing hashing for database;
+ALTER SYSTEM SET password_encryption = 'scram-sha-256'; 
+SELECT pg_reload_conf();   
+
+ALTER USER <username> WITH PASSWORD 'password';
+change specific file lines;
+password_encryption = scram-sha-256  (postgres.conf file)
+ALL MD5 to scram-sha-256  (pg_hba.conf)
+
+
+backing up a server
+sudo pg_dump -U <username> -d <database_name> > backup_file.sql 
+
+how to restore from a backup:
+sudo psql -U <username> -d <database_name> -f /path/to/backup.sql
+
+How to enable logging:
+navigate to the postgres.conf file and modify the following settings:
+logging_collector = on
+log_min_error_statement = error
+log_connections = on
+log_disconnections = on
+log_statements = 'all'
+log_min_duration_statement = 200ms
+
+How to set up UFW
+sudo uwf enable
+
+
+
+
