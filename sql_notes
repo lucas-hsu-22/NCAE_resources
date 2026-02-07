@@ -14,6 +14,12 @@ DROP USER username
 Connect/switch databases;
 /c <database name>
 
+Seeing users in the database:
+/du
+
+seeing databases on the server:
+/l
+
 Import a file to the database
 psql -U your_username -d your_database_name -f /path/to/yourfile.sql   
 
@@ -60,6 +66,7 @@ log_min_duration_statement = 200ms
 
 How to set up UFW
 sudo uwf enable
+
 
 
 
