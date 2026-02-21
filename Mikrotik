@@ -7,3 +7,7 @@ print interfaces
 adding/removing ip addresses
 /ip address add address=x.x.x.x/x interface=xxxx
 /ip address remove numbers=x
+
+to see firewall rules 
+/ip firewall filter print all
+
