@@ -31,7 +31,9 @@ CREATE USER username WITH <privilage> PASSWORD 'secure_password';
 
 granding privilages;
 GRANT <privilage> ON <database_name> TO <username>
+privilages: CONNECT, USAGE
 GRANT <privilage> ON ALL TABLES IN SCHEMA <schema> TO <user>
+privilages: UPDATE, INSERT, SELECT, DELETE
 
 changing a user to no login
 ALTER USER <username> WITH NOLOGIN
@@ -81,6 +83,7 @@ CREATE TABLE <table_name> ( data_name data_type,
 )
 
 ALTER TABLE <table_name> ADD CONSTRAINT <constraint_rule> UNIQUE (column name);
+
 
 
 
