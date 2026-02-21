@@ -1,4 +1,34 @@
+to check for running crontabs:
 sudo ls -1 /var/spool/cron/crontabs
+
+to view and edit crontabs:
+sudo crontab -u <username> -e
+
+to view aliases:
+alias
+
+to remove all aliases for the session:
 unalias -a
 
-debsums -s
+to edit aliases:
+sudo nano ~/.bashrc
+
+to save alias changes:
+sudo source ~/.bashrc OR restart...
+
+how to check for odified binaries:
+sudo debsums -s
+
+how to fix them:
+apt-get install --reinstall $(dpkg -S $(debsums -c) | cut -d : -f 1 | sort -u)
+
+How to get back in with a root shell
+1. hard stop the VM
+2. Start the VM
+3. Spam Escape while booting
+4. once menu shows up, press e
+5. In following menu, find the line that says "linux". 
+In that line, find the ro part and change it to rw. Then, at end of line, add this: 'init=/bin/sh'. Then, ctrl+x to enter shell
+
+Things to look for in pam.d
+
