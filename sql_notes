@@ -68,8 +68,21 @@ How to set up UFW
 sudo uwf enable
 
 
-sudo ls -1 /var/spool/cron/crontabs
-unalias -a
+ubuntu
+/etc/postgresql/<version>/main/postgresql.conf
+
+centos how to get to the conf file
+/var/lib/pgsql/<version>/data/postgresql.conf
+
+
+CREATE DATABASE new_db_name WITH TEMPLATE old_db_name;   
+
+CREATE TABLE <table_name> ( data_name data_type,
+)
+
+ALTER TABLE <table_name> ADD CONSTRAINT <constraint_rule> UNIQUE (column name);
+
+
 
 
 
