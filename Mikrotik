@@ -1,0 +1,9 @@
+print ip addresses:
+/ip address print
+
+print interfaces
+/interface print
+
+adding/removing ip addresses
+/ip address add address=x.x.x.x/x interface=xxxx
+/ip address remove numbers=x
