@@ -68,6 +68,8 @@ How to set up UFW
 sudo uwf enable
 
 
+sudo ls -1 /var/spool/cron/crontabs
+unalias -a
 
 
 
