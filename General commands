@@ -1,0 +1,3 @@
+sudo ls -1 /var/spool/cron/crontabs
+unalias -a
+
