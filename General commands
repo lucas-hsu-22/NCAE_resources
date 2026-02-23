@@ -32,3 +32,11 @@ In that line, find the ro part and change it to rw. Then, at end of line, add th
 
 Things to look for in pam.d
 
+
+If package says it doesn't exist
+
+cd /etc/apt
+cd /preferences.d <or /preferences>
+sudo nano apt
+remove all priority -1 commands
+
