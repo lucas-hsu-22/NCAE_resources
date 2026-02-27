@@ -47,3 +47,10 @@ cd /preferences.d <or /preferences>
 sudo nano apt
 remove all priority -1 commands
 
+languages:
+sudo nano /etc/default/locale   
+
+in file edit:
+LANG=en_US.UTF-8
+LANGUAGE=en_US   
+
