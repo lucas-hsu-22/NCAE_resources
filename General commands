@@ -1,3 +1,10 @@
+order of operations:
+password change
+remove users
+cronjobs
+system.d
+
+
 to check for running crontabs:
 sudo ls -1 /var/spool/cron/crontabs
 
