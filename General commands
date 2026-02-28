@@ -4,6 +4,11 @@ remove users
 cronjobs
 system.d
 
+password change
+sudo passwd <username>
+
+to make a user no-login
+sudo usermod -s /bin/false username
 
 to check for running crontabs:
 sudo ls -1 /var/spool/cron/crontabs
