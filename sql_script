@@ -1,0 +1,41 @@
+#!/bin/bash
+
+#setting up a postgres sql server
+
+set -e
+
+#variable initialization ** make sure to update to correct values for competition
+DB_NAME="insert_db_name"
+DB_USER="insert_user_here"
+DB_PASS="password"
+PG_Version="number"
+
+echo "updating packages"
+sudo apt update
+
+echo "installing/updating postgresql"
+sudo apt install -y postgresql postgresql-contrib
+
+#starting the server
+sudo systemctl start postgresql
+sudo systemctl enable postgresql
+
+#getting the database up
+
+sudo -u postgres psql <<EOF
+
+-- create database
+CREATE DATABASE $DB_NAME;
+
+-- create user with password
+CREATE USER $DB_USER WITH PASSWORD '$DB_PASS';
+
+-- conencting to database
+/c;
+
+-- grant privilages
+GRANT CONNECT, USAGE ON DATABASE $DB_NAME TO $DB_USER;
+GRANT SELECT, INSERT, DELETE, UPDATE ON ALL TABLES IN SCHEMA public TO $DB_USER;
+EOF
+
+
