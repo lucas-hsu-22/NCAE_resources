@@ -1,0 +1,51 @@
+#!/bin/bash
+
+# === M2: Logging Setup ===
+LOGFILE="./pg_db_creation.log"
+echo "=== PostgreSQL Database Creation Log ===" >> "$LOGFILE"
+echo "Started at $(date)" >> "$LOGFILE"
+
+# === M1: User Input ===
+read -p "Enter PostgreSQL username: " PGUSER
+read -sp "Enter password for $PGUSER: " PGPASS
+echo
+read -p "Enter the name of the database to create: " DBNAME
+
+# Export password so psql can use it non-interactively
+export PGPASSWORD="$PGPASS"
+
+# === M1: Conditional - Check if DB already exists ===
+DB_EXISTS=$(psql -U "$PGUSER" -tAc "SELECT 1 FROM pg_database WHERE datname='$DBNAME';")
+
+if [ "$DB_EXISTS" = "1" ]; then
+    echo "Database '$DBNAME' already exists. Exiting." | tee -a "$LOGFILE"
+    exit 1
+else
+    echo "Database '$DBNAME' does not exist. Proceeding to create it." | tee -a "$LOGFILE"
+fi
+
+# === M1: Loop over SQL files to execute (optional) ===
+SQL_DIR="./sql_files"
+if [ -d "$SQL_DIR" ]; then
+    for file in "$SQL_DIR"/*.sql; do
+        [ -e "$file" ] || continue  # skip if no files
+        echo "Executing $file..." | tee -a "$LOGFILE"
+        psql -U "$PGUSER" -d "$DBNAME" -f "$file" 2>> "$LOGFILE"
+        if [ $? -ne 0 ]; then
+            echo "Error executing $file. Check log." | tee -a "$LOGFILE"
+        fi
+    done
+fi
+
+# === M1: Create the Database ===
+echo "Creating database '$DBNAME'..." | tee -a "$LOGFILE"
+psql -U "$PGUSER" -c "CREATE DATABASE $DBNAME;" 2>> "$LOGFILE"
+
+if [ $? -eq 0 ]; then
+    echo "Database '$DBNAME' created successfully!" | tee -a "$LOGFILE"
+else
+    echo "Failed to create database '$DBNAME'. Check log." | tee -a "$LOGFILE"
+fi
+
+# === M2: Final Log Entry ===
+echo "Script finished at $(date)" >> "$LOGFILE"
