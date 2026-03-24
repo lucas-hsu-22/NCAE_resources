@@ -33,7 +33,7 @@ else
     echo "Failed to create database '$DBNAME'. Check log." | tee -a "$LOGFILE"
 fi
 
-sudo -u postgres psql <<EOF
+sudo -u $PGUSER psql <<EOF
 
 CREATE USER $DB_USER WITH PASSWORD '$DB_PASS';
 
