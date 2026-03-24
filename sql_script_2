@@ -7,11 +7,11 @@ echo "Started at $(date)" >> "$LOGFILE"
 
 # User Input
 read -p "Enter PostgreSQL username: " PGUSER
-read -sp "Enter password for $PGUSER: " PGPASS
+read -p "Enter the new user's username: " DB_USER
+read -sp "Enter password for $DB_USER: " DB_PASS
 read -p "Enter the name of the database to create: " DBNAME
 
-# Export password so psql can use it non-interactively
-export PGPASSWORD="$PGPASS"
+
 
 
 echo "Database '$DBNAME': Proceeding to create" | tee -a "$LOGFILE"
@@ -31,14 +31,14 @@ fi
 
 sudo -u postgres psql <<EOF
 
-
+CREATE USER $DB_USER WITH PASSWORD '$DB_PASS';
 
 -- conencting to database
 /c $DBNAME;
 
 -- grant privilages
-GRANT CONNECT, USAGE ON DATABASE $DBNAME TO $PGUSER;
-GRANT SELECT, INSERT, DELETE, UPDATE ON ALL TABLES IN SCHEMA public TO $PGUSER;
+GRANT CONNECT, USAGE ON DATABASE $DBNAME TO $DB_USER;
+GRANT SELECT, INSERT, DELETE, UPDATE ON ALL TABLES IN SCHEMA public TO $DB_USER;
 EOF
 
 # Final Log Entry
