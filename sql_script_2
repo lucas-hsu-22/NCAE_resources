@@ -7,11 +7,14 @@ echo "Started at $(date)" >> "$LOGFILE"
 
 # User Input
 read -p "Enter PostgreSQL username: " PGUSER
+read -sp "Enter the '$PGUSER' password: " PGPASSWD
+echo
 read -p "Enter the new user's username: " DB_USER
 read -sp "Enter password for $DB_USER: " DB_PASS
+echo
 read -p "Enter the name of the database to create: " DBNAME
 
-
+export PGPASSWORD="$PGPASSWD"
 
 
 echo "Database '$DBNAME': Proceeding to create" | tee -a "$LOGFILE"
