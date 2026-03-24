@@ -29,5 +29,17 @@ else
     echo "Failed to create database '$DBNAME'. Check log." | tee -a "$LOGFILE"
 fi
 
+sudo -u postgres psql <<EOF
+
+
+
+-- conencting to database
+/c $DBNAME;
+
+-- grant privilages
+GRANT CONNECT, USAGE ON DATABASE $DBNAME TO $PGUSER;
+GRANT SELECT, INSERT, DELETE, UPDATE ON ALL TABLES IN SCHEMA public TO $PGUSER;
+EOF
+
 # Final Log Entry
 echo "Script finished at $(date)" >> "$LOGFILE"
