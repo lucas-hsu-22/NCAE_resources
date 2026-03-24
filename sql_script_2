@@ -11,31 +11,17 @@ read -p "Enter PostgreSQL username: " PGUSER
 read -p "Enter the new user's username: " DB_USER
 read -sp "Enter password for $DB_USER: " DB_PASS
 echo
-read -sp "Enter the '$PGUSER' password: " PGPASSWD
-echo
 read -p "Enter the name of the database to create: " DBNAME
-
-export PGPASSWORD="$PGPASSWD"
 
 
 echo "Database '$DBNAME': Proceeding to create" | tee -a "$LOGFILE"
 
 
-
-
-# Create the Database
-echo "Creating database '$DBNAME'..." | tee -a "$LOGFILE"
-psql -U "$PGUSER" -c "CREATE DATABASE $DBNAME;" 2>> "$LOGFILE"
-
-if [ $? -eq 0 ]; then
-    echo "Database '$DBNAME' created successfully!" | tee -a "$LOGFILE"
-else
-    echo "Failed to create database '$DBNAME'. Check log." | tee -a "$LOGFILE"
-fi
-
+echo "put in $PGUSER password"
 sudo psql -U $PGUSER -d postgres -W <<EOF
 
 CREATE USER $DB_USER WITH PASSWORD '$DB_PASS';
+CREATE DATABASE $DBNAME;
 
 -- conencting to database
 /c $DBNAME;
