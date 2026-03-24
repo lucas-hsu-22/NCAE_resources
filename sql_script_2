@@ -17,17 +17,18 @@ read -p "Enter the name of the database to create: " DBNAME
 echo "Database '$DBNAME': Proceeding to create" | tee -a "$LOGFILE"
 
 
-echo "put in $PGUSER password"
+echo "Put in $PGUSER password"
+echo
 sudo psql -U $PGUSER -d postgres -W <<EOF
 
 CREATE USER $DB_USER WITH PASSWORD '$DB_PASS';
 CREATE DATABASE $DBNAME;
 
 -- conencting to database
-/c $DBNAME;
+\c $DBNAME;
 
 -- grant privilages
-GRANT CONNECT, USAGE ON DATABASE $DBNAME TO $DB_USER;
+GRANT CONNECT ON DATABASE $DBNAME TO $DB_USER;
 GRANT SELECT, INSERT, DELETE, UPDATE ON ALL TABLES IN SCHEMA public TO $DB_USER;
 EOF
 
