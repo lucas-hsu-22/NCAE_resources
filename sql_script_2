@@ -12,8 +12,6 @@ read -p "Enter the new user's username: " DB_USER
 read -sp "Enter password for $DB_USER: " DB_PASS
 echo
 read -p "Enter the name of the database to create: " DBNAME
-read -sp "Enter password for $PGUSER: " PGPASS
-echo
 
 echo "Database '$DBNAME': Proceeding to create" | tee -a "$LOGFILE"
 
@@ -33,3 +31,4 @@ GRANT CONNECT ON DATABASE $DBNAME TO $DB_USER;
 GRANT SELECT, INSERT, DELETE, UPDATE ON ALL TABLES IN SCHEMA public TO $DB_USER;
 EOF
 
+echo "Script finished at $(date)" >> "$LOGFILE"
