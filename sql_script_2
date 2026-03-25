@@ -12,13 +12,15 @@ read -p "Enter the new user's username: " DB_USER
 read -sp "Enter password for $DB_USER: " DB_PASS
 echo
 read -p "Enter the name of the database to create: " DBNAME
-
+read -sp "Enter password for $PGUSER: " PGPASS
+echo
+export PGPASSWORD=$PGPASS
 
 echo "Database '$DBNAME': Proceeding to create" | tee -a "$LOGFILE"
 
 
-echo "Put in $PGUSER password"
-echo
+#echo "Put in $PGUSER password"
+#echo
 sudo psql -U $PGUSER -d postgres -W <<EOF
 
 CREATE USER $DB_USER WITH PASSWORD '$DB_PASS';
